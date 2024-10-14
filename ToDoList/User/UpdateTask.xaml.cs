@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFToDoList
+namespace ToDoList
 {
     public partial class UpdateTask
     {
@@ -21,5 +21,35 @@ namespace WPFToDoList
         {
             InitializeComponent();
         }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TitleTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
+        private void DescriptionTextbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
+
+        private void HourComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void MinuteComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+        }
+
     }
 }
