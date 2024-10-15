@@ -19,7 +19,7 @@
 
         <!-- Nút Đăng xuất tách riêng -->
         <Button Content="Đăng xuất" Width="100" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                Background="#1976D2" Foreground="White" BorderBrush="#4A4A4A" 
+                Background="#D32F2F" Foreground="White" BorderBrush="#4A4A4A" 
                 FontWeight="Bold" Margin="673,0,0,0" Click="LogoutButton_Click" RenderTransformOrigin="0.255,0.661"/>
 
         <!-- Nội dung chính -->
