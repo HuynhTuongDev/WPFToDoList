@@ -13,13 +13,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFToDoList
+namespace ToDoList
 {
     public partial class DeleteTask
     {
         public DeleteTask()
         {
             InitializeComponent();
+        }
+
+        private void DeleteTask_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CancelTask_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
