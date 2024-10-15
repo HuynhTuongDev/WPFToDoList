@@ -9,8 +9,8 @@
             <TextBlock Text="Bạn có chắc chắn muốn xóa tác vụ này?" FontSize="16" Foreground="#333333" Margin="0,0,0,20" HorizontalAlignment="Center"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Xóa" Width="100" Background="CadetBlue" Foreground="White" Margin="0,0,10,0" Click="DeleteTask_Click"/>
-                <Button Content="Huỷ" Width="100" Background="CadetBlue" Foreground="White" Click="CancelTask_Click"/>
+                <Button Content="Xóa" Width="100" Background="#1976D2" Foreground="White" FontWeight="Bold" Margin="0,0,10,0" Click="DeleteTask_Click" Height="30"/>
+                <Button Content="Huỷ" Width="100" Background="#1976D2" Foreground="White" FontWeight="Bold" Click="CancelTask_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>
