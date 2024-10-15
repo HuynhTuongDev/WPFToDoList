@@ -76,6 +76,12 @@
             <TextBlock Text="Công Việc Của Tôi" FontSize="24" 
                        FontWeight="Bold" Margin="0,0,0,20" 
                        Foreground="#333333" HorizontalAlignment="Center"/>
+
+            <!-- Nút Đăng Xuất -->
+            <Button Content="Đăng xuất" Width="100" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                    Background="#D32F2F" Foreground="White" BorderBrush="#4A4A4A" 
+                    FontWeight="Bold" Margin="10,0,0,40" Click="LogoutButton_Click" RenderTransformOrigin="0.255,0.661"/>
+
             <ListView x:Name="UserTasksListView" Margin="0,0,0,20">
                 <ListView.View>
                     <GridView>
@@ -109,13 +115,13 @@
                 <TextBox Name="SearchTextBox" 
                          Text="Tìm kiếm công việc..." 
                          Width="300" Margin="0,0,10,0" TextChanged="SearchTextBox_TextChanged"/>
-                <Button Content="Tìm" Click="SearchButton_Click" Width="100" Margin="10,10, 10, 10"/>
+                <Button Content="Tìm" Background="#1976D2" Click="SearchButton_Click" Width="100" Margin="10,10,10,10"/>
             </StackPanel>
 
             <!-- Thêm các nút điều khiển công việc -->
-            <Button Content="Thêm Công Việc" Click="AddTaskButton_Click" Width="300"/>
-            <Button Content="Chỉnh Sửa Công Việc" Click="EditTaskButton_Click" Width="300"/>
-            <Button Content="Xóa Công Việc" Click="DeleteTaskButton_Click" Width="300"/>
+            <Button Content="Thêm Công Việc" Background="#1976D2" Click="AddTaskButton_Click" Width="300"/>
+            <Button Content="Chỉnh Sửa Công Việc" Background="#1976D2" Click="EditTaskButton_Click" Width="300"/>
+            <Button Content="Xóa Công Việc" Background="#1976D2" Click="DeleteTaskButton_Click" Width="300"/>
         </StackPanel>
     </Grid>
 </Window>

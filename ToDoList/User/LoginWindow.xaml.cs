@@ -1,17 +1,19 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using BusinessObject;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Input;
 using ToDoList.Services;
+
 namespace ToDoList
 {
     public partial class LoginWindow : Window
     {
-        private readonly IUserService userService;
+        private readonly IUserService _userService;
 
         public LoginWindow(IUserService userService)
         {
             InitializeComponent();
-            this.userService = userService;
+            _userService = userService;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -24,23 +26,32 @@ namespace ToDoList
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            string email = EmailTextBox.Text;
+            string email = EmailTextBox.Text.Trim();
             string password = UserPasswordBox.Password;
 
+            // Kiểm tra xem email và mật khẩu có trống hay không
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Email hoặc mật khẩu trống!", "Cần có trường", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowErrorMessage("Email hoặc mật khẩu không được để trống!", "Cần có trường");
                 return;
             }
 
-            var user = await userService.LoginUserAsync(email, password);
+            // Gọi dịch vụ để đăng nhập
+            var user = await _userService.LoginUserAsync(email, password);
             if (user == null)
             {
-                MessageBox.Show("Email hoặc mật khẩu không chính xác!", "Thông tin không chính xác", MessageBoxButton.OK);
+                ShowErrorMessage("Email hoặc mật khẩu không chính xác!", "Thông tin không chính xác");
                 return;
             }
 
+            // Ẩn cửa sổ đăng nhập
             Hide();
+            OpenUserWindow(user);
+            Close();
+        }
+
+        private void OpenUserWindow(User user)
+        {
             if (user.Role == 0)
             {
                 var adminWindow = new Admin();
@@ -53,10 +64,13 @@ namespace ToDoList
             }
             else
             {
-                MessageBox.Show("Bạn không có quyền truy cập hệ thống", "Không được phép", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowErrorMessage("Bạn không có quyền truy cập hệ thống", "Không được phép");
             }
+        }
 
-            Close();
+        private void ShowErrorMessage(string message, string title)
+        {
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)

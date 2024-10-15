@@ -26,9 +26,19 @@ namespace ToDoList.Repositories
 
         public async Task<User> AddUserAsync(User user)
         {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-            return user;
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                await _context.Users.AddAsync(user);
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+                return user;
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw; // Ném lại ngoại lệ để xử lý ở nơi khác
+            }
         }
     }
 }
