@@ -16,7 +16,7 @@ namespace ToDoList
         private void ManageUsers_Click(object sender, RoutedEventArgs e)
         {
             // Hiển thị nội dung mới cho Quản lý người dùng
-            MainContent.Content = new TextBlock { Text = "Quản lý người dùng", FontSize = 24, FontWeight = FontWeights.Bold };
+            MainContent.Content = new ManageUser();
         }
 
         // Sự kiện khi nhấn nút "Quản lý danh mục tác vụ"

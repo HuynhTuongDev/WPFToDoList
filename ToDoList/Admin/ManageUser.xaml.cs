@@ -5,11 +5,11 @@ using System.Windows.Controls;
 
 namespace ToDoList
 {
-    public partial class ManageUsers : UserControl
+    public partial class ManageUser : UserControl
     {
         private List<User> users;
 
-        public ManageUsers()
+        public ManageUser()
         {
             InitializeComponent();
             users = new List<User>();
