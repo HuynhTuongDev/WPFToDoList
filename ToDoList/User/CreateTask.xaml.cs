@@ -9,7 +9,8 @@ using System.Windows.Controls;
 
 namespace ToDoList
 {
-    public partial class CreateTask {
+    public partial class CreateTask : Window
+    {
         public CreateTask()
         {
             InitializeComponent();
@@ -29,5 +30,6 @@ namespace ToDoList
             
         }
 
+        
     }
 }

@@ -27,16 +27,22 @@ namespace ToDoList
         private void AddTaskButton_Click(object sender, RoutedEventArgs e)
         {
             // Xử lý khi nút thêm công việc được nhấn
+            CreateTask createTask = new CreateTask();
+            createTask.ShowDialog();
         }
 
         private void EditTaskButton_Click(object sender, RoutedEventArgs e)
         {
             // Xử lý khi nút chỉnh sửa công việc được nhấn
+            UpdateTask updateTask = new UpdateTask();
+            updateTask.ShowDialog();
         }
 
         private void DeleteTaskButton_Click(object sender, RoutedEventArgs e)
         {
             // Xử lý khi nút xóa công việc được nhấn
+            DeleteTask deletetask = new DeleteTask();
+            deletetask.ShowDialog();
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
