@@ -55,4 +55,5 @@
                     Background="Blue" Foreground="White"/>
             </StackPanel>
         </Grid>
+    </Grid>
 </UserControl>
