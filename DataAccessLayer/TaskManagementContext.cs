@@ -8,6 +8,10 @@ namespace DataAccessLayer
 {
     public class TaskManagementContext : DbContext
     {
+        public TaskManagementContext()
+        {
+        }
+
         public TaskManagementContext(DbContextOptions<TaskManagementContext> options) : base(options)
         {
         }

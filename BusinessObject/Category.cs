@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Data.Common;
 
 namespace BusinessObject
 {
@@ -15,5 +17,7 @@ namespace BusinessObject
 
         // Danh sách các công việc thuộc danh mục
         public ICollection<Todo> Todos { get; set; } = new List<Todo>();
+
+
     }
 }
