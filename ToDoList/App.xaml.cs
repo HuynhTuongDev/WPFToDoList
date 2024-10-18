@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using ToDoList.Repositories;
 using ToDoList.Services;
 using System.Windows;
+using Services;
 
 namespace ToDoList
 {
@@ -32,9 +33,11 @@ namespace ToDoList
             services.AddTransient<ITodoRepository, TodoRepository>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ITodoService, TodoService>();
-
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<LoginWindow>();
             services.AddTransient<RegisterWindow>();
+            services.AddTransient<ManageTaskCate>();
         }
 
         protected override void OnStartup(StartupEventArgs e)

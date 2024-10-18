@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using Services;
+using System.Windows;
 using System.Windows.Controls;
+using ToDoList.Services;
 
 namespace ToDoList
 {
@@ -23,6 +25,7 @@ namespace ToDoList
             // Hiển thị nội dung mới cho Quản lý danh mục tác vụ
             MainContent.Content = new ManageTaskCate();
         }
+
 
         // Sự kiện khi nhấn nút "Quản lý tác vụ"
         private void ManageTasks_Click(object sender, RoutedEventArgs e)
