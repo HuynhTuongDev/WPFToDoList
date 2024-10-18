@@ -12,12 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace ToDoList
 {
-    /// <summary>
-    /// Interaction logic for ManageTaskCate.xaml
-    /// </summary>
+
     public partial class ManageTaskCate : UserControl
     {
         public ManageTaskCate()
@@ -25,4 +24,5 @@ namespace ToDoList
             InitializeComponent();
         }
     }
+            
 }
