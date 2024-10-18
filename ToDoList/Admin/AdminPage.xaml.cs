@@ -31,7 +31,7 @@ namespace ToDoList
         private void ManageTasks_Click(object sender, RoutedEventArgs e)
         {
             // Hiển thị nội dung mới cho Quản lý tác vụ
-            MainContent.Content = new TextBlock { Text = "Quản lý tác vụ", FontSize = 24, FontWeight = FontWeights.Bold };
+            MainContent.Content = new ManageTask();
         }
 
         // Sự kiện khi nhấn nút "Đăng xuất"
