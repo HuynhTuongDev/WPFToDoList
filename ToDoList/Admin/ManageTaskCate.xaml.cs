@@ -9,6 +9,7 @@ namespace ToDoList
     public partial class ManageTaskCate : UserControl
     {
         private readonly ICategoryService _categoryService;
+        private readonly Category category;
 
         public ManageTaskCate()
         {
@@ -61,7 +62,7 @@ namespace ToDoList
             var selectedCategory = (Category)TaskCategoriesDataGrid.SelectedItem;
             if (selectedCategory != null)
             {
-                UpdateWindow updateWindow = new UpdateWindow();
+                UpdateCategoryWindow updateWindow = new UpdateCategoryWindow(category);
                 updateWindow.ShowDialog();
                 LoadTaskCategories(); // Refresh DataGrid
             }
@@ -69,26 +70,6 @@ namespace ToDoList
             {
                 MessageBox.Show("Please select a category to remove.");
             }
-        }
-
-        private void AddCategory_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RemoveCategory_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void UpdateSelected_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SaveChanges_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

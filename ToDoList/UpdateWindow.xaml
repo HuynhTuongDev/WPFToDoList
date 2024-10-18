@@ -1,4 +1,4 @@
-﻿<Window x:Class="ToDoList.UpdateWindow"
+﻿<Window x:Class="ToDoList.UpdateCategoryWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Update Category" Height="300" Width="400">
