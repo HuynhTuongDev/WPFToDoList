@@ -23,6 +23,26 @@ namespace ToDoList
         {
             InitializeComponent();
         }
+
+        private void AddCategory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RemoveCategory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void UpdateSelected_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveChanges_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
             
 }

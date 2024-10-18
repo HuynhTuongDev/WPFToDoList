@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BusinessObject;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 

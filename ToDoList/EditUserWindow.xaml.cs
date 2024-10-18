@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using BusinessObject;
+using System.Windows;
 
 namespace ToDoList
 {
@@ -10,9 +11,8 @@ namespace ToDoList
         {
             InitializeComponent();
             // Gán giá trị cho các trường từ người dùng được chỉnh sửa
-            UserNameTextBox.Text = userToEdit.Username; // Thay đổi từ FullName thành Username
+            UserNameTextBox.Text = userToEdit.FullName; // Thay đổi từ FullName thành Username
             EmailTextBox.Text = userToEdit.Email;
-            PhoneNumberTextBox.Text = userToEdit.PhoneNumber;
             UpdatedUser = userToEdit; // Giữ bản sao để cập nhật sau
         }
 
@@ -20,9 +20,8 @@ namespace ToDoList
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             // Cập nhật thông tin người dùng
-            UpdatedUser.Username = UserNameTextBox.Text; // Cập nhật Username
+            UpdatedUser.FullName = UserNameTextBox.Text; // Cập nhật Username
             UpdatedUser.Email = EmailTextBox.Text;
-            UpdatedUser.PhoneNumber = PhoneNumberTextBox.Text;
 
             DialogResult = true; // Đặt kết quả của cửa sổ là true
             Close(); // Đóng cửa sổ

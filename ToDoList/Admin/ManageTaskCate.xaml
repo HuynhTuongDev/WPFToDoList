@@ -23,30 +23,6 @@
                 <!-- Name column -->
                 <DataGridTextColumn Header="Category Name" Binding="{Binding Name}" Width="*"/>
 
-<<<<<<< HEAD
-                            <!-- Name column -->
-                            <DataGridTextColumn Header="Category Name" Binding="{Binding Name}" Width="*"/>
-
-                            <!-- Description column -->
-                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </ScrollViewer>
-
-            <!-- StackPanel with buttons to manage task categories -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
-                <Button Content="Add Category" Width="100" Margin="5" Click="AddCategory_Click" 
-                    Background="Blue" Foreground="White"/>
-                <Button Content="Remove Category" Width="100" Margin="5" Click="RemoveCategory_Click" 
-                    Background="Blue" Foreground="White"/>
-                <Button Content="Save Changes" Width="100" Margin="5" Click="SaveChanges_Click" 
-                    Background="Blue" Foreground="White"/>
-                <Button Content="Update Selected" Width="120" Margin="5" Click="UpdateSelected_Click" 
-                    Background="Blue" Foreground="White"/>
-            </StackPanel>
-        </Grid>
-=======
                 <!-- Description column -->
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
             </DataGrid.Columns>
@@ -59,6 +35,5 @@
             <Button Content="Update" Width="100" Margin="5" Background="#0D76D1" Foreground="White" FontSize="15" FontWeight="DemiBold" Click="UpdateSelected_Click"/>
             <Button Content="Save Changes" Width="100" Margin="5" Background="#0D76D1" Foreground="White" FontSize="15" FontWeight="DemiBold" Click="SaveChanges_Click"/>
         </StackPanel>
->>>>>>> master
     </Grid>
 </UserControl>

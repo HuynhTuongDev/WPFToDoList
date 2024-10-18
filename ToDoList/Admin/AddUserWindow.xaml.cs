@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessObject;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -36,9 +37,8 @@ namespace ToDoList
             // Tạo đối tượng User mới
             User newUser = new User
             {
-                Id = id,
-                Username = UsernameTextBox.Text,
-                PhoneNumber = PhoneNumberTextBox.Text,
+                UserId = id,
+                FullName = UsernameTextBox.Text,
                 Email = EmailTextBox.Text
             };
 
