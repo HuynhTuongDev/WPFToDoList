@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ToDoList.User
+namespace ToDoList
 {
     /// <summary>
     /// Interaction logic for DoneTaskListWindow.xaml
@@ -30,6 +30,11 @@ namespace ToDoList.User
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditTaskButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
