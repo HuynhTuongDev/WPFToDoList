@@ -53,7 +53,7 @@ namespace ToDoList
             // Chuyển hướng đến màn hình đăng nhập
             OpenLoginWindow();
         }
-
+            
         private void ClearUserSession()
         {
             // Xóa thông tin người dùng

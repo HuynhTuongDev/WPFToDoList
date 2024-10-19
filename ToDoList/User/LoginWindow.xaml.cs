@@ -54,7 +54,7 @@ namespace ToDoList
         {
             if (user.Role == 0)
             {
-                var adminWindow = new Admin();
+                var adminWindow = new Admin { User = user };
                 adminWindow.ShowDialog();
             }
             else if (user.Role == 1)

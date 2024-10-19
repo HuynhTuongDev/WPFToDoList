@@ -1,17 +1,26 @@
-﻿using Services;
+﻿using BusinessObject;
+using DataAccessLayer;
+using Microsoft.Extensions.DependencyInjection;
+using Services;
 using System.Windows;
 using System.Windows.Controls;
+using ToDoList.Repositories;
 using ToDoList.Services;
 
 namespace ToDoList
 {
     public partial class Admin : Window
     {
+        public User User { get; set; }
+
         public Admin()
         {
             InitializeComponent();
         }
-
+        public Admin(User user)
+        {
+            InitializeComponent();
+        }
         // Sự kiện khi nhấn nút "Quản lý người dùng"
         private void ManageUsers_Click(object sender, RoutedEventArgs e)
         {
@@ -37,9 +46,24 @@ namespace ToDoList
         // Sự kiện khi nhấn nút "Đăng xuất"
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            // Xử lý đăng xuất
-            MessageBox.Show("Đăng xuất thành công!");
-            this.Close(); // Hoặc điều hướng sang màn hình đăng nhập
+            ClearUserSession();
+            OpenLoginWindow();
+        }
+        private void ClearUserSession()
+        {
+            // Xóa thông tin người dùng
+            User = null; // Đặt User về null
+
+            // Thông báo người dùng về việc đăng xuất thành công
+            MessageBox.Show("Đã đăng xuất thành công.");
+        }
+
+        private void OpenLoginWindow()
+        {
+            // Mở cửa sổ đăng nhập
+            var loginWindow = App.ServiceProvider.GetRequiredService<LoginWindow>();
+            loginWindow.Show();
+            Close(); // Đóng cửa sổ hiện tại
         }
     }
 }
