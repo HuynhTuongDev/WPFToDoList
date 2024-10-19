@@ -39,6 +39,7 @@ namespace ToDoList
         {
             AddWindow addWindow = new AddWindow();
             addWindow.ShowDialog();
+            LoadTaskCategories(); // Refresh DataGrid
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
@@ -62,14 +63,19 @@ namespace ToDoList
             var selectedCategory = (Category)TaskCategoriesDataGrid.SelectedItem;
             if (selectedCategory != null)
             {
-                UpdateCategoryWindow updateWindow = new UpdateCategoryWindow(category);
-                updateWindow.ShowDialog();
-                LoadTaskCategories(); // Refresh DataGrid
+                UpdateCategoryWindow updateWindow = new UpdateCategoryWindow(selectedCategory);
+                updateWindow.Show();
             }
             else
             {
                 MessageBox.Show("Please select a category to remove.");
             }
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoadTaskCategories();
+            MessageBox.Show("All Updated successfully");
         }
     }
 }

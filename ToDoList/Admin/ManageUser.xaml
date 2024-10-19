@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ToDoList.ManageUser"
+﻿<UserControl Background="White" x:Class="ToDoList.ManageUser"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,7 +15,7 @@
 
         <!-- DataGrid để hiển thị danh sách người dùng -->
         <DataGrid x:Name="UserDataGrid" Grid.Row="1" AutoGenerateColumns="False" 
-                  IsReadOnly="False" CanUserAddRows="False" Margin="0,10,0,10">
+                  IsReadOnly="False" Background="LightGray" CanUserAddRows="False" Margin="0,10,0,10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding UserID}" Width="100"/>
                 <DataGridTextColumn Header="Tên người dùng" Binding="{Binding UserName}" Width="200"/>
@@ -26,9 +26,9 @@
 
         <!-- Các nút Thêm, Sửa, Xóa -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <Button Content="Thêm" Width="100" Margin="5" Background="LightBlue" Click="AddUser_Click"/>
-            <Button Content="Sửa" Width="100" Margin="5" Background="LightBlue" Click="EditUser_Click"/>
-            <Button Content="Xóa" Width="100" Margin="5" Background="LightBlue" Click="DeleteUser_Click"/>
+            <Button Content="Thêm" Width="100" Margin="5" Background="#1976D2" Foreground="White" FontWeight="DemiBold" Click="AddUser_Click"/>
+            <Button Content="Sửa" Width="100" Margin="5" Background="#1976D2" Foreground="White" FontWeight="DemiBold" Click="EditUser_Click"/>
+            <Button Content="Xóa" Width="100" Margin="5" Background="#1976D2" Foreground="White" FontWeight="DemiBold" Click="DeleteUser_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

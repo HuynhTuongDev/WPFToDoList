@@ -13,24 +13,24 @@
 
         <!-- Title -->
         <Label Grid.Row="0" Content="Title:" VerticalAlignment="Center" />
-        <TextBox Grid.Row="0" Name="txtTitle" Margin="100,0,0,10" Width="250" />
+        <TextBox Grid.Row="0" Name="txtTitle" Margin="115,0,16,10" />
 
         <!-- Description -->
         <Label Grid.Row="1" Content="Description:" VerticalAlignment="Center" />
-        <TextBox Grid.Row="1" Name="txtDescription" Margin="100,0,0,10" Width="250" Height="70" TextWrapping="Wrap" AcceptsReturn="True"/>
+        <TextBox Grid.Row="1" Name="txtDescription" Margin="115,0,16,10" Height="70" TextWrapping="Wrap" AcceptsReturn="True"/>
 
         <!-- Due Date -->
         <Label Grid.Row="2" Content="Due Date:" VerticalAlignment="Center" />
-        <DatePicker Grid.Row="2" Name="dpDueDate" Margin="100,0,0,10" />
+        <DatePicker Grid.Row="2" Name="dpDueDate" Margin="115,0,16,10" />
 
         <!-- Is Completed -->
         <Label Grid.Row="3" Content="Is Completed:" VerticalAlignment="Center" />
-        <CheckBox Grid.Row="3" Name="chkIsCompleted" Margin="100,0,0,10" />
+        <CheckBox Grid.Row="3" Name="chkIsCompleted" Margin="115,5,-15,5" />
 
         <!-- Save and Cancel Buttons -->
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-            <Button Name="btnSaveTask" Content="Save Task" Width="100" Click="btnSaveTask_Click" Margin="5" />
-            <Button Name="btnCancel" Content="Cancel" Width="100" Click="btnCancel_Click" Margin="5" />
+            <Button Name="btnSaveTask" Content="Save Task" Width="100" Background="#1976D2" Foreground="White" FontWeight="DemiBold" Click="btnSaveTask_Click" Margin="5" Height="35" />
+            <Button Name="btnCancel" Content="Cancel" Width="100" Background="#1976D2" Foreground="White" FontWeight="DemiBold" Click="btnCancel_Click" Margin="5" Height="35" />
         </StackPanel>
     </Grid>
 </Window>

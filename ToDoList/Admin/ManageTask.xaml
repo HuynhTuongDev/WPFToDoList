@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ToDoList.ManageTask"
+﻿<UserControl Background="White" x:Class="ToDoList.ManageTask"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -16,7 +16,7 @@
         <TextBlock Grid.Row="0" Text="Task Management" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
 
         <!-- DataGrid hiển thị danh sách công việc -->
-        <DataGrid Grid.Row="1" Name="TaskDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0,10">
+        <DataGrid Grid.Row="1" Name="TaskDataGrid" AutoGenerateColumns="False" Background="LightGray" CanUserAddRows="False" Margin="0,0,0,10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="200"/>
@@ -30,9 +30,9 @@
 
         <!-- Các nút Thêm, Xóa, Sửa -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button Name="AddTaskButton" Content="Add Task" Width="100" Margin="5" Click="AddTaskButton_Click"/>
-            <Button Name="EditTaskButton" Content="Edit Task" Width="100" Margin="5" Click="EditTaskButton_Click"/>
-            <Button Name="DeleteTaskButton" Content="Delete Task" Width="100" Margin="5" Click="DeleteTaskButton_Click"/>
+            <Button Name="AddTaskButton" Content="Add Task" Width="100" Background="#1976D2" Foreground="White" FontWeight="DemiBold" Margin="5" Click="AddTaskButton_Click"/>
+            <Button Name="EditTaskButton" Content="Edit Task" Width="100" Background="#1976D2" Foreground="White" FontWeight="DemiBold" Margin="5" Click="EditTaskButton_Click"/>
+            <Button Name="DeleteTaskButton" Content="Delete Task" Width="100" Background="#1976D2" Foreground="White" FontWeight="DemiBold" Margin="5" Click="DeleteTaskButton_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

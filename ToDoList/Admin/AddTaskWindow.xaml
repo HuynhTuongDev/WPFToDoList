@@ -21,16 +21,16 @@
 
         <!-- Due Date -->
         <Label Grid.Row="2" Content="Due Date:" VerticalAlignment="Center" />
-        <DatePicker Grid.Row="2" Name="dpDueDate" Margin="100,0,0,10" />
+        <DatePicker Grid.Row="2" Name="dpDueDate" Margin="115,0,15,10" />
 
         <!-- Is Completed -->
         <Label Grid.Row="3" Content="Is Completed:" VerticalAlignment="Center" />
-        <CheckBox Grid.Row="3" Name="chkIsCompleted" Margin="100,0,0,10" />
+        <CheckBox Grid.Row="3" Name="chkIsCompleted" Margin="115,5,-15,5" />
 
         <!-- Add and Cancel Buttons -->
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-            <Button Name="btnAddTask" Content="Add Task" Width="100" Click="btnAddTask_Click" Margin="5" />
-            <Button Name="btnCancel" Content="Cancel" Width="100" Click="btnCancel_Click" Margin="5" />
+            <Button x:Name="btnAddTask" Content="Add Task" Width="100" Background="#1976D2" Foreground="White" FontWeight="DemiBold" Click="btnAddTask_Click" Height="35" />
+            <Button x:Name="btnCancel" Content="Cancel" Width="100" Background="#1976D2" Foreground="White" FontWeight="DemiBold" Click="btnCancel_Click" Margin="5" Height="35" />
         </StackPanel>
     </Grid>
 </Window>

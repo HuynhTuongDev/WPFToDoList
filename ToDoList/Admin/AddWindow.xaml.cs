@@ -71,5 +71,10 @@ namespace ToDoList
         {
             Close(); // Đóng cửa sổ
         }
+
+        private void txtDescription_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
     }
 }

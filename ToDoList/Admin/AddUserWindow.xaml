@@ -36,7 +36,7 @@
 
         <!-- Add Button -->
         <Button Content="Add" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" 
-                Width="100" HorizontalAlignment="Center" Margin="0,20,0,0"
+                Width="100" Background="#1976D2" Foreground="White" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="0,20,0,0"
                 Click="AddButton_Click"/>
     </Grid>
 </Window>
