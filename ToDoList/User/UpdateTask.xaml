@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Background="White">
     <Grid Margin="20">
+        <CheckBox x:Name="IsCompletedCheckBox" Content="Đã hoàn thành" HorizontalAlignment="Left" Margin="437,23,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#31473A" Height="24" Width="128"/>
+
         <Label x:Name="TaskDetailTitleLabel" Content="Chỉnh sửa tác vụ" HorizontalAlignment="Left" Margin="8,10,0,0" VerticalAlignment="Top" Width="279" FontSize="30" Foreground="#0D47A1" FontWeight="Bold"/>
 
         <Rectangle HorizontalAlignment="Left" Height="285" Width="580" RadiusX="20" RadiusY="20" Margin="0,65,0,0" Stroke="Black" VerticalAlignment="Top" Fill="#E3F2FD"/>
