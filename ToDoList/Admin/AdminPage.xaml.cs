@@ -12,13 +12,17 @@ namespace ToDoList
     public partial class Admin : Window
     {
         public User User { get; set; }
-
+        private readonly ITodoService _todoServices;
+        private readonly ICategoryService _categoryServices;
         public Admin()
         {
             InitializeComponent();
         }
-        public Admin(User user)
+        public Admin(User user, ITodoService todoService, ICategoryService categoryService)
         {
+            User = user;
+            _todoServices = todoService;
+            _categoryServices = categoryService;
             InitializeComponent();
         }
         // Sự kiện khi nhấn nút "Quản lý người dùng"

@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ToDoList.Repositories
 {
@@ -13,6 +11,7 @@ namespace ToDoList.Repositories
     {
 
         private readonly TaskManagementContext _context;
+
         public CategoryRepository(TaskManagementContext context)
         {
             _context = context;
@@ -25,25 +24,25 @@ namespace ToDoList.Repositories
 
         public void SaveCategory(Category c)
         {
-            _context.Categories.Add(c);
-            _context.SaveChanges();
+            _context.Categories.Add(c); // Sử dụng phương thức đồng bộ Add
+            _context.SaveChanges();     // Sử dụng SaveChanges đồng bộ
         }
 
         public void UpdateCategory(Category c)
         {
-            _context.Categories.Update(c);
-            _context.SaveChanges();
+            _context.Categories.Update(c); // Phương thức đồng bộ Update
+            _context.SaveChanges();        // Sử dụng SaveChanges đồng bộ
         }
 
         public void DeleteCategory(Category c)
         {
-            _context.Categories.Remove(c);
-            _context.SaveChanges();
+            _context.Categories.Remove(c); // Phương thức đồng bộ Remove
+            _context.SaveChanges();        // Sử dụng SaveChanges đồng bộ
         }
 
         public Category GetCategoryId(int id)
         {
-            return _context.Categories.FirstOrDefault(c => c.Id == id);
+            return _context.Categories.FirstOrDefault(c => c.Id == id); // Phương thức đồng bộ FirstOrDefault
         }
     }
 }

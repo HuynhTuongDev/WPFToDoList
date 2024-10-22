@@ -26,7 +26,7 @@ namespace ToDoList
         }
 
         // Load danh sách các danh mục tác vụ
-        private void LoadTaskCategories()
+        private async void LoadTaskCategories()
         {
             // Lấy danh sách từ service
             List<Category> categories = _categoryService.GetCategories();
