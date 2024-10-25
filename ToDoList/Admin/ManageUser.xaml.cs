@@ -1,47 +1,63 @@
 ﻿using BusinessObject;
+using Services;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using ToDoList.Services;
 
 namespace ToDoList
 {
     public partial class ManageUser : UserControl
     {
-        private List<User> users;
+        private readonly IUserService _userService;
+        List<User> users;
 
         public ManageUser()
         {
             InitializeComponent();
-            users = new List<User>();
-            UserDataGrid.ItemsSource = users; // Liên kết danh sách người dùng với DataGrid
+            _userService = (IUserService)App.ServiceProvider.GetService(typeof(IUserService));
+            //users = new List<User>();
+
         }
 
-        // Phương thức xử lý khi nhấn nút "Thêm"
-        private void AddUser_Click(object sender, RoutedEventArgs e)
+        // Sự kiện khi UserControl được tải
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            // Mở cửa sổ AddUserWindow để thêm người dùng mới
-            AddUserWindow addUserWindow = new AddUserWindow(users);
+            LoadUser();
+        }
+
+        // Load danh sách các danh mục tác vụ
+        private async void LoadUser()
+        {
+            // Lấy danh sách từ service
+            List<User> users = await _userService.GetAllUsersAsync();
+
+            // Gán danh sách vào DataGrid
+            UserDataGrid.ItemsSource = users;
+        }
+
+        private async void AddUser_Click(object sender, RoutedEventArgs e)
+        {
+            AddUserWindow addUserWindow = new AddUserWindow(users, _userService);
             addUserWindow.ShowDialog();
 
             if (addUserWindow.DialogResult == true)
             {
-                // Cập nhật lại DataGrid nếu người dùng mới được thêm thành công
-                UserDataGrid.Items.Refresh();
+                LoadUser();
             }
         }
 
-        // Phương thức xử lý khi nhấn nút "Sửa"
-        private void EditUser_Click(object sender, RoutedEventArgs e)
+        private async void EditUser_Click(object sender, RoutedEventArgs e)
         {
             if (UserDataGrid.SelectedItem != null)
             {
                 User selectedUser = (User)UserDataGrid.SelectedItem;
-                EditUserWindow editWindow = new EditUserWindow(selectedUser);
+                EditUserWindow editWindow = new EditUserWindow(selectedUser, _userService);
 
                 if (editWindow.ShowDialog() == true)
                 {
-                    // Cập nhật lại DataGrid sau khi chỉnh sửa
-                    UserDataGrid.Items.Refresh();
+                    LoadUser(); 
                 }
             }
             else
@@ -50,14 +66,29 @@ namespace ToDoList
             }
         }
 
-        // Phương thức xử lý khi nhấn nút "Xóa"
-        private void DeleteUser_Click(object sender, RoutedEventArgs e)
+        private async void DeleteUser_Click(object sender, RoutedEventArgs e)
         {
             if (UserDataGrid.SelectedItem != null)
             {
                 User selectedUser = (User)UserDataGrid.SelectedItem;
-                users.Remove(selectedUser); // Xóa người dùng được chọn khỏi danh sách
-                UserDataGrid.Items.Refresh(); // Cập nhật lại DataGrid sau khi xóa
+
+                try
+                {
+                    await _userService.DeleteUserAsync(selectedUser.UserId);
+                    users.Remove(selectedUser);
+                    if (UserDataGrid != null)
+                    {
+                        UserDataGrid.Items.Refresh();
+                    }
+                    else
+                    {
+                        MessageBox.Show("UserDataGrid is null.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             else
             {

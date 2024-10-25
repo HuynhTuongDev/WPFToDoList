@@ -1,55 +1,59 @@
 ﻿using BusinessObject;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
+using ToDoList.Services;
 
 namespace ToDoList
 {
     public partial class AddUserWindow : Window
     {
+        private readonly IUserService _userService;
         private List<User> users;
 
-        public AddUserWindow(List<User> users)
+        public AddUserWindow(List<User> users, IUserService userService)
         {
             InitializeComponent();
             this.users = users; // Truyền danh sách người dùng hiện tại
+            _userService = userService;
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+        private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
             // Kiểm tra tính hợp lệ của các trường dữ liệu
-            if (string.IsNullOrWhiteSpace(IdTextBox.Text) ||
+            if (
                 string.IsNullOrWhiteSpace(UsernameTextBox.Text) ||
-                string.IsNullOrWhiteSpace(PhoneNumberTextBox.Text) ||
                 string.IsNullOrWhiteSpace(EmailTextBox.Text))
             {
                 MessageBox.Show("Please fill out all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            // Kiểm tra nếu ID có phải là số
-            if (!int.TryParse(IdTextBox.Text, out int id))
-            {
-                MessageBox.Show("ID must be a valid number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
 
             // Tạo đối tượng User mới
-            User newUser = new User
+            var newUser = new User
             {
-                UserId = id,
                 FullName = UsernameTextBox.Text,
-                Email = EmailTextBox.Text
+                Email = EmailTextBox.Text,
             };
 
-            // Thêm vào danh sách người dùng
-            users.Add(newUser);
+            try
+            {
+                // Gọi UserService để thêm người dùng
+                var createdUser = await _userService.AddUserAsync(newUser);
 
-            // Đóng cửa sổ và báo hiệu thêm thành công
-            this.DialogResult = true;
-            this.Close();
+                // Đóng cửa sổ và báo hiệu thêm thành công
+                this.DialogResult = true;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
+
 
 

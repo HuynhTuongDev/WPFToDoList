@@ -1,13 +1,17 @@
-﻿using BusinessObject;
+﻿using BusinessObject;  
 using System.Collections.Generic;
-using System.Threading.Tasks; // Thêm namespace này để sử dụng Task
+using System.Threading.Tasks;
 
 namespace ToDoList.Repositories
 {
     public interface IUserRepository
     {
-        Task<User> LoginUserAsync(string email, string hashPassword); 
         Task<User> AddUserAsync(User user); 
-        Task<bool> GetUserByEmailAsync( string email);
+        Task<User> UpdateUserAsync(User user); 
+        Task DeleteUserAsync(int userId); 
+        Task<List<User>> GetAllUsersAsync(); 
+        Task<User> GetUserByIdAsync(int userId); 
+        Task<User> GetUserByEmailAsync(string email); 
     }
 }
+

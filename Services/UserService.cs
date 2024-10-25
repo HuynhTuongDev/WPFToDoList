@@ -1,6 +1,7 @@
 ﻿using BusinessObject;
-using System.Security.Cryptography;
-using System.Text;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using ToDoList.Repositories;
 
 namespace ToDoList.Services
@@ -13,32 +14,36 @@ namespace ToDoList.Services
         {
             _userRepository = userRepository;
         }
-        public async Task<bool> GetUserByEmailAsync(string email)
-        {
-            return await _userRepository.GetUserByEmailAsync(email);
-        }
-
-        public async Task<User> LoginUserAsync(string email, string password)
-        {
-            var hashedPassword = HashPassword(password);
-            return await _userRepository.LoginUserAsync(email, hashedPassword);
-        }
 
         public async Task<User> RegisterUserAsync(User user)
         {
-            user.Password = HashPassword(user.Password);
+            // Kiểm tra xem email đã tồn tại chưa
+            var existingUser = await _userRepository.GetUserByEmailAsync(user.Email);
+            if (existingUser != null)
+            {
+                throw new Exception("Email đã tồn tại. Vui lòng sử dụng email khác.");
+            }
+
+            // Đăng ký người dùng mới
             return await _userRepository.AddUserAsync(user);
         }
 
-        private string HashPassword(string password)
+        public async Task<User> AddUserAsync(User user) => await _userRepository.AddUserAsync(user);
+        public async Task<User> UpdateUserAsync(User user) => await _userRepository.UpdateUserAsync(user);
+        public async Task DeleteUserAsync(int userId) => await _userRepository.DeleteUserAsync(userId);
+        public async Task<List<User>> GetAllUsersAsync() => await _userRepository.GetAllUsersAsync();
+        public async Task<User> GetUserByIdAsync(int userId) => await _userRepository.GetUserByIdAsync(userId);
+        public async Task<User> GetUserByEmailAsync(string email) => await _userRepository.GetUserByEmailAsync(email);
+
+        // Cài đặt phương thức LoginUserAsync
+        public async Task<User> LoginUserAsync(string email, string password)
         {
-            using (var sha256 = SHA256.Create())
+            var user = await _userRepository.GetUserByEmailAsync(email);
+            if (user == null || user.Password != password)
             {
-                var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return Convert.ToBase64String(bytes);
+                
             }
+            return user;
         }
-
-
     }
 }

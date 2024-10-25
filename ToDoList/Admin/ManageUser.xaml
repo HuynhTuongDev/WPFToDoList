@@ -17,10 +17,10 @@
         <DataGrid x:Name="UserDataGrid" Grid.Row="1" AutoGenerateColumns="False" 
                   IsReadOnly="False" Background="LightGray" CanUserAddRows="False" Margin="0,10,0,10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding UserID}" Width="100"/>
-                <DataGridTextColumn Header="Tên người dùng" Binding="{Binding UserName}" Width="200"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding UserID}" Width="30"/>
+                <DataGridTextColumn Header="Tên người dùng" Binding="{Binding UserName}" Width="100"/>
                 <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
-                <DataGridTextColumn Header="Số điện thoại" Binding="{Binding PhoneNumber}" Width="200"/>
+                <DataGridTextColumn Header="Số điện thoại" Binding="{Binding PhoneNumber}" Width="150"/>
             </DataGrid.Columns>
         </DataGrid>
 

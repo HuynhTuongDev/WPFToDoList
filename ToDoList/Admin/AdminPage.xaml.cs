@@ -12,20 +12,33 @@ namespace ToDoList
     public partial class Admin : Window
     {
         public User User { get; set; }
+        private readonly IUserService _userService;
 
+        // Constructor không tham số để tránh lỗi CS1729
         public Admin()
         {
             InitializeComponent();
         }
-        public Admin(User user)
+
+        public Admin(IUserService userService)
         {
             InitializeComponent();
+            _userService = userService;
         }
+
+        public Admin(User user, IUserService userService)
+        {
+            InitializeComponent();
+            User = user;
+            _userService = userService;
+        }
+
         // Sự kiện khi nhấn nút "Quản lý người dùng"
         private void ManageUsers_Click(object sender, RoutedEventArgs e)
         {
             // Hiển thị nội dung mới cho Quản lý người dùng
-            MainContent.Content = new ManageUser();
+            var manageUserControl = new ManageUser();
+            MainContent.Content = manageUserControl;
         }
 
         // Sự kiện khi nhấn nút "Quản lý danh mục tác vụ"
@@ -34,7 +47,6 @@ namespace ToDoList
             // Hiển thị nội dung mới cho Quản lý danh mục tác vụ
             MainContent.Content = new ManageTaskCate();
         }
-
 
         // Sự kiện khi nhấn nút "Quản lý tác vụ"
         private void ManageTasks_Click(object sender, RoutedEventArgs e)
@@ -49,6 +61,7 @@ namespace ToDoList
             ClearUserSession();
             OpenLoginWindow();
         }
+
         private void ClearUserSession()
         {
             // Xóa thông tin người dùng
@@ -65,5 +78,9 @@ namespace ToDoList
             loginWindow.Show();
             Close(); // Đóng cửa sổ hiện tại
         }
-    }
-}
+
+        }
+ }
+
+
+

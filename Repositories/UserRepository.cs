@@ -1,6 +1,7 @@
 ﻿using BusinessObject;
-using DataAccessLayer;
+using DataAccessLayer; // Context truy cập dữ liệu
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ToDoList.Repositories
@@ -14,31 +15,46 @@ namespace ToDoList.Repositories
             _context = context;
         }
 
-        public async Task<bool> GetUserByEmailAsync(string email)
-        {
-            return await _context.Users.AnyAsync(u => u.Email == email);
-        }
-
-        public async Task<User> LoginUserAsync(string email, string hashPassword)
-        {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == hashPassword);
-        }
-
         public async Task<User> AddUserAsync(User user)
         {
-            using var transaction = await _context.Database.BeginTransactionAsync();
-            try
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
+
+        public async Task<User> UpdateUserAsync(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
+
+        public async Task DeleteUserAsync(int userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user != null)
             {
-                await _context.Users.AddAsync(user);
+                _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
-                await transaction.CommitAsync();
-                return user;
             }
-            catch
-            {
-                await transaction.RollbackAsync();
-                throw; // Ném lại ngoại lệ để xử lý ở nơi khác
-            }
+        }
+
+      
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
+     
+        public async Task<User> GetUserByIdAsync(int userId)
+        {
+            return await _context.Users.FindAsync(userId);
+        }
+
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }
+

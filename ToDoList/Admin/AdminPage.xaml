@@ -41,6 +41,7 @@
                     <Button Content="Quản lý tác vụ" Margin="0,0,0,10" 
                             Background="#1976D2" Foreground="White"
                             BorderBrush="#D6D6D6" FontWeight="Bold" Click="ManageTasks_Click"/>
+
                 </StackPanel>
             </Border>
 

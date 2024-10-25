@@ -1,38 +1,64 @@
 ﻿using BusinessObject;
+using System;
 using System.Windows;
+using ToDoList.Services;
 
 namespace ToDoList
 {
     public partial class EditUserWindow : Window
     {
+        private readonly IUserService _userService;
         public User UpdatedUser { get; private set; }
 
-        public EditUserWindow(User userToEdit)
+        public EditUserWindow(User userToEdit, IUserService userService)
         {
             InitializeComponent();
-            // Gán giá trị cho các trường từ người dùng được chỉnh sửa
-            UserNameTextBox.Text = userToEdit.FullName; // Thay đổi từ FullName thành Username
+
+            // Kiểm tra nếu userToEdit là null
+            if (userToEdit == null)
+            {
+                MessageBox.Show("User to edit is null.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Kiểm tra nếu các TextBox không được khởi tạo
+            if (UserNameTextBox == null || EmailTextBox == null)
+            {
+                MessageBox.Show("UI controls are not initialized.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Gán giá trị cho các TextBox
+            UserNameTextBox.Text = userToEdit.FullName;
             EmailTextBox.Text = userToEdit.Email;
-            UpdatedUser = userToEdit; // Giữ bản sao để cập nhật sau
+            UpdatedUser = userToEdit;
+            _userService = userService;
         }
 
-        // Sự kiện nhấn nút OK
-        private void OkButton_Click(object sender, RoutedEventArgs e)
+        private async void OkButton_Click(object sender, RoutedEventArgs e)
         {
             // Cập nhật thông tin người dùng
-            UpdatedUser.FullName = UserNameTextBox.Text; // Cập nhật Username
+            UpdatedUser.FullName = UserNameTextBox.Text;
             UpdatedUser.Email = EmailTextBox.Text;
 
-            DialogResult = true; // Đặt kết quả của cửa sổ là true
-            Close(); // Đóng cửa sổ
+            try
+            {
+                // Gọi UserService để cập nhật người dùng
+                await _userService.UpdateUserAsync(UpdatedUser);
+
+                DialogResult = true;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        // Sự kiện nhấn nút Cancel
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false; // Đặt kết quả của cửa sổ là false
-            Close(); // Đóng cửa sổ
+            // Đóng cửa sổ khi người dùng nhấn nút Cancel
+            this.Close();
         }
     }
 }
-

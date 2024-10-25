@@ -16,19 +16,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- ID -->
-        <TextBlock Text="ID:" Grid.Row="0" VerticalAlignment="Center"/>
-        <TextBox x:Name="IdTextBox" Grid.Row="0" Grid.Column="1" Width="200" />
-
+       
         <!-- Username -->
         <TextBlock Text="Username:" Grid.Row="1" VerticalAlignment="Center"/>
         <TextBox x:Name="UsernameTextBox" Grid.Row="1" Grid.Column="1" Width="200" />
 
        
 
-        <!-- Phone Number -->
-        <TextBlock Text="Phone Number:" Grid.Row="3" VerticalAlignment="Center"/>
-        <TextBox x:Name="PhoneNumberTextBox" Grid.Row="3" Grid.Column="1" Width="200" />
+        
 
         <!-- Email -->
         <TextBlock Text="Email:" Grid.Row="4" VerticalAlignment="Center"/>
