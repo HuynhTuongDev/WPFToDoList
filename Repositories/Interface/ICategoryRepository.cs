@@ -11,11 +11,11 @@ namespace ToDoList.Repositories
     {
         List<Category> GetCategories();
 
-        void SaveCategory(Category c);
+         void SaveCategory(Category c);
 
-        void UpdateCategory(Category c);
+         void UpdateCategory(Category c);
 
-        void DeleteCategory(Category c);
+         void DeleteCategory(Category c);
 
         Category GetCategoryId(int id);
     }

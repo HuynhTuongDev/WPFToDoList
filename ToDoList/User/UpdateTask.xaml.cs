@@ -1,55 +1,61 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BusinessObject;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ToDoList.Services;
 
 namespace ToDoList
 {
-    public partial class UpdateTask
+    public partial class UpdateTask : Window
     {
-        public UpdateTask()
+        private readonly ITodoService _todoService;
+        private readonly ICategoryService _categoryService;
+        private Todo _currentTask;
+
+        public UpdateTask(Todo task, ITodoService todoService, ICategoryService categoryService)
         {
             InitializeComponent();
+            _currentTask = task;
+            _todoService = todoService;
+            _categoryService = categoryService;
+
+            // Hiển thị thông tin công việc đã chọn trong giao diện
+            TitleTextBox.Text = _currentTask.Title;
+            DescriptionTextbox.Text = _currentTask.Description;
+
+            // Nạp danh sách danh mục vào CategoryComboBox (giả sử bạn có phương thức GetCategories trong ICategoryService)
+            LoadCategories();
+            CategoryComboBox.SelectedValue = _currentTask.CategoryId; // Chọn danh mục hiện tại
+
+            CompletionCheckBox.IsChecked = _currentTask.IsCompleted;
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void LoadCategories()
         {
+            var categories =  _categoryService.GetCategories(); // Phương thức lấy danh mục
+            CategoryComboBox.ItemsSource = categories; // Gán danh sách danh mục cho ComboBox
+            CategoryComboBox.DisplayMemberPath = "Name"; // Giả sử bạn có thuộc tính "Name" trong Category
+            CategoryComboBox.SelectedValuePath = "Id"; // Giả sử bạn có thuộc tính "Id" trong Category
+        }
 
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Cập nhật thông tin công việc từ giao diện
+            _currentTask.Title = TitleTextBox.Text;
+            _currentTask.Description = DescriptionTextbox.Text;
+            _currentTask.CategoryId = (int)CategoryComboBox.SelectedValue;
+            _currentTask.IsCompleted = CompletionCheckBox.IsChecked ?? false;
+
+            // Gọi dịch vụ để cập nhật công việc
+            await _todoService.UpdateTodoAsync(_currentTask);
+
+            // Đóng cửa sổ và trả về kết quả
+            DialogResult = true;
+            Close();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-
+            // Đóng cửa sổ mà không lưu
+            Close();
         }
-
-        private void TitleTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
-        private void DescriptionTextbox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-        }
-
-        private void HourComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-        }
-
-        private void MinuteComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           
-        }
-
     }
 }

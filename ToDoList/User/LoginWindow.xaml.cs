@@ -9,6 +9,7 @@ namespace ToDoList
     public partial class LoginWindow : Window
     {
         private readonly IUserService _userService;
+        private readonly ITodoService _todoServices;
 
         public LoginWindow(IUserService userService)
         {
@@ -52,14 +53,16 @@ namespace ToDoList
 
         private void OpenUserWindow(User user)
         {
+            var todoService = App.ServiceProvider.GetRequiredService<ITodoService>();
+            var categoryService = App.ServiceProvider.GetRequiredService<ICategoryService>();
             if (user.Role == 0)
             {
-                var adminWindow = new Admin { User = user };
+                var adminWindow = new Admin(user, todoService, categoryService);
                 adminWindow.ShowDialog();
             }
             else if (user.Role == 1)
             {
-                var mainWindow = new MainWindow { User = user };
+                var mainWindow = new MainWindow(user, todoService, categoryService);
                 mainWindow.ShowDialog();
             }
             else

@@ -12,16 +12,26 @@ namespace ToDoList
     public partial class Admin : Window
     {
         public User User { get; set; }
+
         private readonly IUserService _userService;
 
         // Constructor không tham số để tránh lỗi CS1729
+
+        private readonly ITodoService _todoServices;
+        private readonly ICategoryService _categoryServices;
+
         public Admin()
         {
             InitializeComponent();
         }
 
-        public Admin(IUserService userService)
+
+        public Admin(User user, ITodoService todoService, ICategoryService categoryService, IUserService userService)
+
         {
+            User = user;
+            _todoServices = todoService;
+            _categoryServices = categoryService;
             InitializeComponent();
             _userService = userService;
         }
