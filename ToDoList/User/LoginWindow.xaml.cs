@@ -55,9 +55,11 @@ namespace ToDoList
         {
             var todoService = App.ServiceProvider.GetRequiredService<ITodoService>();
             var categoryService = App.ServiceProvider.GetRequiredService<ICategoryService>();
+
+            var userService = App.ServiceProvider.GetRequiredService<IUserService>();
             if (user.Role == 0)
             {
-                var adminWindow = new Admin(user, todoService, categoryService);
+                var adminWindow = new Admin(user, todoService, categoryService, userService);
                 adminWindow.ShowDialog();
             }
             else if (user.Role == 1)
