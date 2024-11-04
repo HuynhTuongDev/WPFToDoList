@@ -22,33 +22,27 @@ namespace ToDoList.Repositories
             return user;
         }
 
-        public async Task<User> UpdateUserAsync(User user)
+        public User UpdateUser(User user)
         {
             _context.Users.Update(user);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return user;
         }
 
-        public async Task DeleteUserAsync(int userId)
+        public void  DeleteUser(int userId)
         {
-            var user = await _context.Users.FindAsync(userId);
+            var user =  _context.Users.Find(userId);
             if (user != null)
             {
                 _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
 
       
-        public async Task<List<User>> GetAllUsersAsync()
+        public List<User> GetAllUsers()
         {
-            return await _context.Users.ToListAsync();
-        }
-
-     
-        public async Task<User> GetUserByIdAsync(int userId)
-        {
-            return await _context.Users.FindAsync(userId);
+            return  _context.Users.ToList();
         }
 
         public async Task<User> GetUserByEmailAsync(string email)

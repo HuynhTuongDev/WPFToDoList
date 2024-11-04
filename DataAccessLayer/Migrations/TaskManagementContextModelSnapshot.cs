@@ -90,7 +90,7 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Tasks");
                 });
 
-            modelBuilder.Entity("BusinessObject.User", b =>
+            modelBuilder.Entity("User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -116,6 +116,10 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
@@ -129,7 +133,7 @@ namespace DataAccessLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BusinessObject.User", "User")
+                    b.HasOne("User", "User")
                         .WithMany("Todos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -145,7 +149,7 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Todos");
                 });
 
-            modelBuilder.Entity("BusinessObject.User", b =>
+            modelBuilder.Entity("User", b =>
                 {
                     b.Navigation("Todos");
                 });

@@ -1,5 +1,6 @@
 ﻿using BusinessObject;
 using Microsoft.Extensions.DependencyInjection;
+using Services;
 using System.Windows;
 using System.Windows.Input;
 using ToDoList.Services;
@@ -10,11 +11,15 @@ namespace ToDoList
     {
         private readonly IUserService _userService;
         private readonly ITodoService _todoServices;
+        private readonly HashPassword _hashPassword;
+        private readonly Validation _validation;
 
-        public LoginWindow(IUserService userService)
+        public LoginWindow(IUserService userService, HashPassword hashPassword, Validation validation)
         {
             InitializeComponent();
             _userService = userService;
+            _hashPassword = hashPassword;
+            _validation = validation;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -37,38 +42,60 @@ namespace ToDoList
                 return;
             }
 
-            // Gọi dịch vụ để đăng nhập
-            var user = await _userService.LoginUserAsync(email, password);
-            if (user == null)
+            // Mã hóa mật khẩu nhập vào để so sánh
+            string hashedPassword = _hashPassword.HashPass(password);
+
+            // Kiểm tra tính hợp lệ của email
+            if (!_validation.IsValidEmail(email))
             {
-                ShowErrorMessage("Email hoặc mật khẩu không chính xác!", "Thông tin không chính xác");
+                MessageBox.Show("Email không hợp lệ!", "Lỗi email", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            // Ẩn cửa sổ đăng nhập
-            Hide();
-            OpenUserWindow(user);
-            Close();
+            try
+            {
+                // Gọi dịch vụ để đăng nhập với email và mật khẩu đã băm
+                var user = await _userService.LoginUserAsync(email, hashedPassword);
+                if (user == null)
+                {
+                    ShowErrorMessage("Email hoặc mật khẩu không chính xác!", "Thông tin không chính xác");
+                    return;
+                }
+
+                // Ẩn cửa sổ đăng nhập
+                Hide();
+                OpenUserWindow(user);
+                Close();
+            }
+            catch (Exception ex)
+            {
+                ShowErrorMessage("Đã xảy ra lỗi trong quá trình đăng nhập: " + ex.Message, "Lỗi hệ thống");
+            }
         }
 
         private void OpenUserWindow(User user)
         {
             var todoService = App.ServiceProvider.GetRequiredService<ITodoService>();
             var categoryService = App.ServiceProvider.GetRequiredService<ICategoryService>();
-            if (user.Role == 0)
+            var userService = App.ServiceProvider.GetRequiredService<IUserService>();
+
+            Window userWindow;
+
+            // Mở cửa sổ tương ứng dựa vào vai trò người dùng
+            switch (user.Role)
             {
-                var adminWindow = new Admin(user, todoService, categoryService);
-                adminWindow.ShowDialog();
+                case 0:
+                    userWindow = new Admin(user, todoService, categoryService, userService);
+                    break;
+                case 1:
+                    userWindow = new MainWindow(user, todoService, categoryService);
+                    break;
+                default:
+                    ShowErrorMessage("Bạn không có quyền truy cập hệ thống", "Không được phép");
+                    return;
             }
-            else if (user.Role == 1)
-            {
-                var mainWindow = new MainWindow(user, todoService, categoryService);
-                mainWindow.ShowDialog();
-            }
-            else
-            {
-                ShowErrorMessage("Bạn không có quyền truy cập hệ thống", "Không được phép");
-            }
+
+            userWindow.ShowDialog();
         }
 
         private void ShowErrorMessage(string message, string title)

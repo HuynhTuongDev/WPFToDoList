@@ -2,17 +2,20 @@
 using ToDoList.Services;
 using BusinessObject;
 using Microsoft.Extensions.DependencyInjection;
-
+using Services;
 namespace ToDoList
 {
     public partial class RegisterWindow : Window
     {
         private readonly IUserService userService;
-
-        public RegisterWindow(IUserService userService)
+        private readonly Validation validation;
+        private readonly HashPassword hashPassword;
+        public RegisterWindow(IUserService userService, Validation validation, HashPassword hashPassword)
         {
             InitializeComponent();
             this.userService = userService;
+            this.validation = validation; 
+            this.hashPassword = hashPassword; 
         }
 
         // Sự kiện khi nhấn nút "Đăng ký"
@@ -35,13 +38,17 @@ namespace ToDoList
                 return;
             }
 
+            // Mã hóa mật khẩu
+            string hashedPassword = hashPassword.HashPass(password);
+
             // Tạo đối tượng người dùng mới
             var newUser = new User
             {
                 Email = email,
                 FullName = fullname,
-                Password = password,
-                Role = 1 // Role mặc định cho người dùng mới
+                Password = hashedPassword, // Lưu mật khẩu đã băm
+                Role = 1,
+                State = "ACTIVE",
             };
 
             // Đăng ký người dùng mới
@@ -62,6 +69,13 @@ namespace ToDoList
                 string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(confirmPassword))
             {
                 MessageBox.Show("Tất cả các trường đều bắt buộc!", "Trường cần thiết", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            // Kiểm tra tính hợp lệ của email
+            if (!validation.IsValidEmail(email))
+            {
+                MessageBox.Show("Email không hợp lệ!", "Lỗi email", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 

@@ -38,6 +38,9 @@ namespace ToDoList
             services.AddTransient<LoginWindow>();
             services.AddTransient<RegisterWindow>();
             services.AddTransient<ManageTaskCate>();
+            services.AddTransient<ManageUser>();
+            services.AddTransient<Validation>(); 
+            services.AddTransient<HashPassword>();
         }
 
         protected override void OnStartup(StartupEventArgs e)

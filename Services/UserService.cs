@@ -29,19 +29,17 @@ namespace ToDoList.Services
         }
 
         public async Task<User> AddUserAsync(User user) => await _userRepository.AddUserAsync(user);
-        public async Task<User> UpdateUserAsync(User user) => await _userRepository.UpdateUserAsync(user);
-        public async Task DeleteUserAsync(int userId) => await _userRepository.DeleteUserAsync(userId);
-        public async Task<List<User>> GetAllUsersAsync() => await _userRepository.GetAllUsersAsync();
-        public async Task<User> GetUserByIdAsync(int userId) => await _userRepository.GetUserByIdAsync(userId);
+        public User UpdateUser(User user) => _userRepository.UpdateUser(user);
+        public void DeleteUser(int userId) => _userRepository.DeleteUser(userId);
+        public List <User> GetAllUsers() =>  _userRepository.GetAllUsers();
         public async Task<User> GetUserByEmailAsync(string email) => await _userRepository.GetUserByEmailAsync(email);
 
-        // Cài đặt phương thức LoginUserAsync
         public async Task<User> LoginUserAsync(string email, string password)
         {
             var user = await _userRepository.GetUserByEmailAsync(email);
-            if (user == null || user.Password != password)
+            if (user == null || user.Password != password || user.State != "ACTIVE")
             {
-                
+                return null;
             }
             return user;
         }

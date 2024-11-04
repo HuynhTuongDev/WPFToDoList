@@ -1,8 +1,4 @@
-﻿using BusinessObject;
-using Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using ToDoList.Services;
 
@@ -11,29 +7,28 @@ namespace ToDoList
     public partial class ManageUser : UserControl
     {
         private readonly IUserService _userService;
-        List<User> users;
+        private List<User> users; // Khai báo biến users ở đây để tránh lặp lại
+
+        public static readonly DependencyProperty RoleListProperty = DependencyProperty.Register(
+            "RoleList", typeof(List<string>), typeof(ManageUser), new PropertyMetadata(new List<string> { "Admin", "User" }));
+
+        public static readonly DependencyProperty StateListProperty = DependencyProperty.Register(
+            "StateList", typeof(List<string>), typeof(ManageUser), new PropertyMetadata(new List<string> { "ACTIVE", "INACTIVE" }));
 
         public ManageUser()
         {
             InitializeComponent();
             _userService = (IUserService)App.ServiceProvider.GetService(typeof(IUserService));
-            //users = new List<User>();
-
         }
 
-        // Sự kiện khi UserControl được tải
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             LoadUser();
         }
 
-        // Load danh sách các danh mục tác vụ
-        private async void LoadUser()
+        private void LoadUser()
         {
-            // Lấy danh sách từ service
-            List<User> users = await _userService.GetAllUsersAsync();
-
-            // Gán danh sách vào DataGrid
+            users = _userService.GetAllUsers();
             UserDataGrid.ItemsSource = users;
         }
 
@@ -44,50 +39,46 @@ namespace ToDoList
 
             if (addUserWindow.DialogResult == true)
             {
-                LoadUser();
+                LoadUser(); // Làm mới danh sách sau khi thêm người dùng
             }
         }
 
-        private async void EditUser_Click(object sender, RoutedEventArgs e)
+        private async void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (UserDataGrid.SelectedItem != null)
+            if (sender is ComboBox comboBox && comboBox.SelectedItem != null)
             {
-                User selectedUser = (User)UserDataGrid.SelectedItem;
-                EditUserWindow editWindow = new EditUserWindow(selectedUser, _userService);
+                var selectedUser = (User)((ComboBox)sender).DataContext;
 
-                if (editWindow.ShowDialog() == true)
+                if (selectedUser != null)
                 {
-                    LoadUser(); 
+                    try
+                    {
+                        _userService.UpdateUser(selectedUser);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error updating user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Please select a user to edit.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private async void DeleteUser_Click(object sender, RoutedEventArgs e)
+        private void DeleteUser_Click(object sender, RoutedEventArgs e)
         {
-            if (UserDataGrid.SelectedItem != null)
+            if (UserDataGrid.SelectedItem is User selectedUser)
             {
-                User selectedUser = (User)UserDataGrid.SelectedItem;
-
-                try
+                var result = MessageBox.Show("Are you sure you want to delete this user?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
                 {
-                    await _userService.DeleteUserAsync(selectedUser.UserId);
-                    users.Remove(selectedUser);
-                    if (UserDataGrid != null)
+                    try
                     {
-                        UserDataGrid.Items.Refresh();
+                        _userService.DeleteUser(selectedUser.UserId);
+                        LoadUser(); // Làm mới danh sách sau khi xóa người dùng
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("UserDataGrid is null.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Error deleting user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error deleting user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
@@ -97,7 +88,3 @@ namespace ToDoList
         }
     }
 }
-
-
-
-

@@ -7,10 +7,9 @@ namespace ToDoList.Repositories
     public interface IUserRepository
     {
         Task<User> AddUserAsync(User user); 
-        Task<User> UpdateUserAsync(User user); 
-        Task DeleteUserAsync(int userId); 
-        Task<List<User>> GetAllUsersAsync(); 
-        Task<User> GetUserByIdAsync(int userId); 
+        User UpdateUser(User user); 
+        void DeleteUser(int userId); 
+        List<User> GetAllUsers(); 
         Task<User> GetUserByEmailAsync(string email); 
     }
 }

@@ -47,8 +47,7 @@ namespace ToDoList
         private void ManageUsers_Click(object sender, RoutedEventArgs e)
         {
             // Hiển thị nội dung mới cho Quản lý người dùng
-            var manageUserControl = new ManageUser();
-            MainContent.Content = manageUserControl;
+            MainContent.Content = new ManageUser();       
         }
 
         // Sự kiện khi nhấn nút "Quản lý danh mục tác vụ"

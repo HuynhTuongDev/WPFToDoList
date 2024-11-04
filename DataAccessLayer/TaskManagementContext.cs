@@ -2,11 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.IO;
 
 namespace DataAccessLayer
 {
-    public class TaskManagementContext : DbContext
+    public class TaskManagementContext : DbContext, IDesignTimeDbContextFactory<TaskManagementContext>
     {
         public TaskManagementContext()
         {
@@ -34,18 +35,15 @@ namespace DataAccessLayer
                 .HasOne(t => t.Category)
                 .WithMany(c => c.Todos)
                 .HasForeignKey(t => t.CategoryId)
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.Cascade);
         }
-    }
 
-    public class TaskManagementContextFactory : IDesignTimeDbContextFactory<TaskManagementContext>
-    {
         public TaskManagementContext CreateDbContext(string[] args = null)
         {
             var builder = new DbContextOptionsBuilder<TaskManagementContext>();
 
             // Lấy đường dẫn đến thư mục gốc của dự án
-            var basePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory)); // Di chuyển lên ba cấp thư mục
+            var basePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory));
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -58,5 +56,4 @@ namespace DataAccessLayer
             return new TaskManagementContext(builder.Options);
         }
     }
-
 }
