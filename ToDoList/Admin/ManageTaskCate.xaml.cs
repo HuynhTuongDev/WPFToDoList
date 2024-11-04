@@ -22,14 +22,15 @@ namespace ToDoList
         // Sự kiện khi UserControl được tải
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadTaskCategories();
+            //LoadTaskCategories();
+          FillDataGrid();
         }
 
         // Load danh sách các danh mục tác vụ
         private async void LoadTaskCategories()
         {
             // Lấy danh sách từ service
-            List<Category> categories = _categoryService.GetCategories();
+            List<Category> categories = await Task.Run(() => _categoryService.GetCategories());
 
             // Gán danh sách vào DataGrid
             TaskCategoriesDataGrid.ItemsSource = categories;
@@ -76,6 +77,17 @@ namespace ToDoList
         {
             LoadTaskCategories();
             MessageBox.Show("All Updated successfully");
+        }
+
+        private void FillDataGrid()
+        {
+            TaskCategoriesDataGrid.ItemsSource = null;
+            TaskCategoriesDataGrid.ItemsSource = _categoryService.GetCategories();
+        }
+
+        private void TaskCategoriesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

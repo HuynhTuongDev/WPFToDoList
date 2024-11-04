@@ -57,11 +57,13 @@ namespace ToDoList
             MainContent.Content = new ManageTaskCate();
         }
 
-        // Sự kiện khi nhấn nút "Quản lý tác vụ"
+        // Sự kiện khi nhấn nút "Quản lý tác vụ"  
         private void ManageTasks_Click(object sender, RoutedEventArgs e)
         {
-            // Hiển thị nội dung mới cho Quản lý tác vụ
-            MainContent.Content = new ManageTask();
+            // Hiển thị nội dung mới cho Quản lý tác vụ  
+            var todoRepository = App.ServiceProvider.GetRequiredService<ITodoRepository>();
+            var categoryRepository = App.ServiceProvider.GetRequiredService<ICategoryRepository>();
+            MainContent.Content = new ManageTask(todoRepository, categoryRepository, User.UserId); // Pass User.Id as userId
         }
 
         // Sự kiện khi nhấn nút "Đăng xuất"

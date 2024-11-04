@@ -33,7 +33,7 @@
         <ComboBox x:Name="CategoryComboBox" 
                    HorizontalAlignment="Stretch" Margin="20,300,20,0" 
                    VerticalAlignment="Top" Height="30" 
-                   FontSize="14"/>
+                   FontSize="14" SelectionChanged="CategoryComboBox_SelectionChanged"/>
 
         <Label x:Name="DateLabel" Content="Ngày" 
                HorizontalAlignment="Left" Margin="134,340,0,0" 

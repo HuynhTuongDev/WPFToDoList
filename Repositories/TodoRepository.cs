@@ -31,7 +31,7 @@ namespace ToDoList.Repositories
         // Thêm mới một công việc
         public async Task AddTodoAsync(Todo todo)
         {
-            await _context.Tasks.AddAsync(todo);
+            _context.Tasks.AddAsync(todo);
             await _context.SaveChangesAsync();
         }
 

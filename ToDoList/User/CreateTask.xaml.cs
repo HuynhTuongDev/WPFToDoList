@@ -120,5 +120,10 @@ namespace ToDoList
         {
             // Bạn có thể thêm logic tại đây nếu cần kiểm tra hoặc xử lý trong quá trình người dùng nhập văn bản.
         }
+
+        private void CategoryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
