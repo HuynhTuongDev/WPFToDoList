@@ -2,7 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:ToDoList" 
-    Title="Quản Lý Công Việc" Height="1000" Width="1500"
+        Title="Quản Lý Công Việc" Height="1000" Width="1500"
+        WindowState="Maximized"
         Background="#E0E0E0">
 
     <Window.Resources>
@@ -86,55 +87,102 @@
             <ListView x:Name="UserTasksListView" Margin="0,0,0,20">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Tên Công Việc" Width="150">
+                        <GridViewColumn Width="300">
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Tên Công Việc" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Title}" TextAlignment="Center" HorizontalAlignment="Center" />
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding Title}" HorizontalAlignment="Center" TextAlignment="Center"/>
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Mô tả" Width="250">
+
+                        <GridViewColumn Width="300">
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Mô tả" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" />
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding Description}" HorizontalAlignment="Center" TextAlignment="Center"/>
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Ngày Tạo" Width="185">
+
+                        <GridViewColumn Width="200">
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Ngày Tạo" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding CreatedAt}" TextAlignment="Center" HorizontalAlignment="Center" />
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding CreatedAt}" HorizontalAlignment="Center" TextAlignment="Center"/>
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Ngày Hết Hạn" Width="185">
+
+                        <GridViewColumn Width="200">
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Ngày Hết Hạn" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding DueDate}" TextAlignment="Center" HorizontalAlignment="Center" />
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding DueDate}" HorizontalAlignment="Center" TextAlignment="Center"/>
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Hoàn Thành" Width="110">
+
+                        <GridViewColumn Width="160">
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Hoàn Thành" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="{Binding IsCompleted, Converter={StaticResource BoolToSymbolConverter}}"
-                                            Width="80"
-                                            Margin="5"
-                                            Click="ToggleCompletion_Click"
-                                            Tag="{Binding}" />
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <Button Content="{Binding IsCompleted, Converter={StaticResource BoolToSymbolConverter}}"
+                                    Width="80"
+                                    Margin="5"
+                                    Click="ToggleCompletion_Click" />
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Danh Mục" Width="100">
+
+                        <GridViewColumn Width="120">
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Danh Mục" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding CategoryId}" TextAlignment="Center" HorizontalAlignment="Center" />
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding CategoryId}" HorizontalAlignment="Center" TextAlignment="Center"/>
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
+
 
         </StackPanel>
 

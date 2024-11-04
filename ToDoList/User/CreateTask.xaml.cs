@@ -95,7 +95,8 @@ namespace ToDoList
                 UserId = _userId,
                 CategoryId = (int)CategoryComboBox.SelectedValue,
                 CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
+                UpdatedAt = DateTime.Now,
+                CreatedBy = _userId,
             };
 
             // Lưu công việc

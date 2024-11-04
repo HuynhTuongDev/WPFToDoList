@@ -24,23 +24,25 @@ namespace ToDoList
     {
         private readonly ITodoRepository _todoRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IUserRepository _userRepository;
         private readonly int _userId; // Add this line to declare _userId
 
         //public Todo editTodo { get; set; } = null;
 
-        public ManageTask(ITodoRepository todoRepository, ICategoryRepository categoryRepository, int userId) // Add userId parameter
+        public ManageTask(ITodoRepository todoRepository, ICategoryRepository categoryRepository, int userId,IUserRepository userRepository) // Add userId parameter
         {
             _todoRepository = todoRepository;
             _categoryRepository = categoryRepository;
-            _userId = userId; // Initialize _userId
+            _userRepository = userRepository;
+            _userId = userId; 
             InitializeComponent();
         }
 
         private void AddTaskButton_Click(object sender, RoutedEventArgs e)
         {
-            var addTaskWindow = new AddTaskWindow(_userId, _todoRepository, _categoryRepository);
+            var addTaskWindow = new AddTaskWindow(_userId, _todoRepository, _categoryRepository, _userRepository);
             addTaskWindow.ShowDialog();
-            FIllTaskDataGrid();
+            FillTaskDataGrid();
         }
 
         private void EditTaskButton_Click(object sender, RoutedEventArgs e)
@@ -56,7 +58,7 @@ namespace ToDoList
                 var editTaskWindow = new EditTaskWindow();
                 editTaskWindow.editTodo = selected;
                 editTaskWindow.ShowDialog();
-                FIllTaskDataGrid();
+                FillTaskDataGrid();
             }
         }
 
@@ -68,7 +70,7 @@ namespace ToDoList
                 if (result == MessageBoxResult.Yes)
                 {
                     await _todoRepository.DeleteTodoAsync(selectedTodo.Id);
-                    FIllTaskDataGrid();
+                    FillTaskDataGrid();
                 }
             }
             else
@@ -81,7 +83,7 @@ namespace ToDoList
         {
 
         }
-        public async void FIllTaskDataGrid()
+        public async void FillTaskDataGrid()
         {
             TaskDataGrid.ItemsSource = null;
             var Todos = await _todoRepository.GetTodosAsync();
@@ -90,7 +92,7 @@ namespace ToDoList
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            FIllTaskDataGrid();
+            FillTaskDataGrid();
         }
     }
 }

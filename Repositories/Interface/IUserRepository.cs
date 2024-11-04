@@ -10,6 +10,7 @@ namespace ToDoList.Repositories
         User UpdateUser(User user); 
         void DeleteUser(int userId); 
         List<User> GetAllUsers(); 
+
         Task<User> GetUserByEmailAsync(string email); 
     }
 }

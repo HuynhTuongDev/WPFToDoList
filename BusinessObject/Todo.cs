@@ -20,6 +20,8 @@ namespace BusinessObject
         public DateTime CreatedAt { get; set; } // Thời điểm tạo công việc
         public DateTime UpdatedAt { get; set; } // Thời điểm cập nhật công việc
 
+        public int CreatedBy { get; set; } // Tên của người tạo công việc
+
         // Khóa ngoại liên kết đến User
         public int UserId { get; set; } // ID của người dùng
 

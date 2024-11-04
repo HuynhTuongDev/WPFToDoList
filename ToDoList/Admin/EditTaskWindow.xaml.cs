@@ -1,4 +1,5 @@
 ﻿using BusinessObject;
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,9 +37,6 @@ namespace ToDoList
                 editTodo.DueDate = (DateTime)dpDueDate.SelectedDate;
                 editTodo.IsCompleted = (bool)chkIsCompleted.IsChecked;
                 editTodo.UpdatedAt = DateTime.Now;
-
-                // Save changes to the database or data source
-                // Assuming you have a method to update the Todo item in your data source
                 UpdateTodoInDataSource(editTodo);
 
                 MessageBox.Show("Task updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -63,13 +61,25 @@ namespace ToDoList
 
         private void UpdateTodoInDataSource(Todo todo)
         {
-            // Implement the logic to update the Todo item in your data source
-            // This could be a call to a database context or an API
+            using (var context = new TaskManagementContext()) // Thay YourDbContext bằng tên ngữ cảnh của bạn
+            {
+                var existingTodo = context.Tasks.Find(todo.Id);
+                if (existingTodo != null)
+                {
+                    existingTodo.Title = todo.Title;
+                    existingTodo.Description = todo.Description;
+                    existingTodo.DueDate = todo.DueDate;
+                    existingTodo.IsCompleted = todo.IsCompleted;
+                    existingTodo.UpdatedAt = todo.UpdatedAt;
+
+                    context.SaveChanges();
+                }
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

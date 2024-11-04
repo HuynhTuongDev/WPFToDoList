@@ -1,7 +1,7 @@
 ﻿<Window x:Class="ToDoList.AddUserWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Add New User" Height="451" Width="463" WindowStartupLocation="CenterScreen"
+        Title="Add New User" Height="450" Width="500" WindowStartupLocation="CenterScreen"
         Background="#F0F0F0">
     <Grid>
         <Border Background="White" CornerRadius="10" Padding="20" Margin="20">

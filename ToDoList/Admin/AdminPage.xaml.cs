@@ -63,7 +63,8 @@ namespace ToDoList
             // Hiển thị nội dung mới cho Quản lý tác vụ  
             var todoRepository = App.ServiceProvider.GetRequiredService<ITodoRepository>();
             var categoryRepository = App.ServiceProvider.GetRequiredService<ICategoryRepository>();
-            MainContent.Content = new ManageTask(todoRepository, categoryRepository, User.UserId); // Pass User.Id as userId
+            var userRepository = App.ServiceProvider.GetRequiredService<IUserRepository>();
+            MainContent.Content = new ManageTask(todoRepository, categoryRepository, User.UserId, userRepository); 
         }
 
         // Sự kiện khi nhấn nút "Đăng xuất"

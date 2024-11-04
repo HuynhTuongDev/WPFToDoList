@@ -19,7 +19,34 @@ namespace ToDoList.Repositories
         // Lấy danh sách tất cả các công việc (tasks)
         public async Task<List<Todo>> GetTodosAsync()
         {
-            return await _context.Tasks.ToListAsync();
+            return await _context.Tasks
+                .Include(t => t.User) // Kết hợp bảng User với Todo thông qua khóa ngoại UserId
+                .Include(t => t.Category) // Kết hợp bảng Category với Todo thông qua khóa ngoại CategoryId
+                .Select(t => new Todo
+                {
+                    Id = t.Id,
+                    Title = t.Title,
+                    Description = t.Description,
+                    DueDate = t.DueDate,
+                    IsCompleted = t.IsCompleted,
+                    CreatedAt = t.CreatedAt,
+                    UpdatedAt = t.UpdatedAt,
+                    CategoryId = t.CategoryId,
+                    UserId = t.UserId,
+                    CreatedBy = t.CreatedBy,
+                    User = new User
+                    {
+                        UserId = t.User.UserId,
+                        Role = t.User.Role,
+                        FullName = t.User.FullName
+                    },
+                    Category = new Category
+                    {
+                        Id = t.Category.Id,
+                        Name = t.Category.Name
+                    }
+                })
+                .ToListAsync();
         }
 
         // Lấy thông tin chi tiết của một công việc dựa trên id

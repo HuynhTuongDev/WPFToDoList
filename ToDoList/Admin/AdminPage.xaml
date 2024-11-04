@@ -1,9 +1,9 @@
 ﻿<Window x:Class="ToDoList.Admin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Trang Admin" Height="760" Width="1010" 
+        Title="Trang Admin" Height="760" Width="1575" 
         WindowStartupLocation="CenterScreen" Background="#F5F5F5">
-
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,9 +18,9 @@
         </Border>
 
         <!-- Nút Đăng xuất tách riêng -->
-        <Button Content="Đăng xuất" Width="100" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" 
+        <Button Content="Đăng xuất" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" 
                 Background="#D32F2F" Foreground="White" BorderBrush="#4A4A4A" 
-                FontWeight="Bold" Margin="673,0,0,0" Click="LogoutButton_Click" RenderTransformOrigin="0.255,0.661"/>
+                FontWeight="Bold" Margin="0,0,100,0" Click="LogoutButton_Click" RenderTransformOrigin="0.255,0.661"/>
 
         <!-- Nội dung chính -->
         <Grid Grid.Row="1" Margin="10">
