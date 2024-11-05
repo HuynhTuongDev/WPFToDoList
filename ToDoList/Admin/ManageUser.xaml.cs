@@ -1,13 +1,17 @@
-﻿using System.Windows;
+﻿using Services;
+using System.Windows;
 using System.Windows.Controls;
 using ToDoList.Services;
+using Validation = Services.Validation;
 
 namespace ToDoList
 {
     public partial class ManageUser : UserControl
     {
         private readonly IUserService _userService;
-        private List<User> users; // Khai báo biến users ở đây để tránh lặp lại
+        private List<User> users;
+        private readonly Validation validation;
+        private readonly HashPassword hashPassword;
 
         public static readonly DependencyProperty RoleListProperty = DependencyProperty.Register(
             "RoleList", typeof(List<string>), typeof(ManageUser), new PropertyMetadata(new List<string> { "Admin", "User" }));
@@ -19,6 +23,8 @@ namespace ToDoList
         {
             InitializeComponent();
             _userService = (IUserService)App.ServiceProvider.GetService(typeof(IUserService));
+            validation = (Validation)App.ServiceProvider.GetService(typeof(Validation));
+            hashPassword = (HashPassword)App.ServiceProvider.GetService(typeof(HashPassword));
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -34,7 +40,7 @@ namespace ToDoList
 
         private async void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            AddUserWindow addUserWindow = new AddUserWindow(users, _userService);
+            AddUserWindow addUserWindow = new AddUserWindow(users, _userService, validation, hashPassword);
             addUserWindow.ShowDialog();
 
             if (addUserWindow.DialogResult == true)
@@ -62,7 +68,6 @@ namespace ToDoList
                 }
             }
         }
-
         private void DeleteUser_Click(object sender, RoutedEventArgs e)
         {
             if (UserDataGrid.SelectedItem is User selectedUser)

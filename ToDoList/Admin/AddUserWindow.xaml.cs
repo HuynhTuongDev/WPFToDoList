@@ -1,10 +1,13 @@
 ﻿using BusinessObject;
+using Microsoft.Extensions.DependencyInjection;
 using Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using ToDoList.Services;
+using MessageBox = System.Windows.MessageBox;
 
 namespace ToDoList
 {
@@ -12,72 +15,81 @@ namespace ToDoList
     {
         private readonly IUserService _userService;
         private List<User> users;
-        public AddUserWindow(List<User> users, IUserService userService)
+        private readonly Validation _validation;
+        private readonly HashPassword _hashPassword;
+        public AddUserWindow(List<User> users, IUserService userService, Validation validation, HashPassword hashPassword)
         {
             InitializeComponent();
-            this.users = users; 
+            this.users = users;
             _userService = userService;
+            _validation = validation;
+            _hashPassword = hashPassword;
         }
 
         private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            var validation = new Validation(); // Đảm bảo rằng bạn đã khởi tạo đối tượng Validation
-            var hashPassword = new HashPassword(); // Đảm bảo rằng bạn đã khởi tạo đối tượng HashPassword
-            // Kiểm tra tính hợp lệ của các trường dữ liệu
-            if (string.IsNullOrWhiteSpace(UsernameTextBox.Text) ||
-                string.IsNullOrWhiteSpace(EmailTextBox.Text) ||
-                string.IsNullOrWhiteSpace(PasswordBox.Password) ||
-                string.IsNullOrWhiteSpace(ConfirmPasswordBox.Password))
+
+            // Lấy thông tin từ các textbox
+            string email = EmailTextBox.Text;
+            string fullname = UsernameTextBox.Text;
+            string password = PasswordBox.Password;
+            string passwordConfirm = ConfirmPasswordBox.Password;
+
+            // Kiểm tra thông tin hợp lệ
+            if (!ValidateUser(email, fullname, password, passwordConfirm)) return;
+
+            // Kiểm tra xem email đã tồn tại chưa
+            var existingUser = await _userService.GetUserByEmailAsync(email);
+            if (existingUser != null) // Nếu email đã tồn tại trong hệ thống
             {
-                MessageBox.Show("Please fill out all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Email đã tồn tại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            // Kiểm tra định dạng email
-            if (!validation.IsValidEmail(EmailTextBox.Text))
-            {
-                MessageBox.Show("Please enter a valid email address.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            // Mã hóa mật khẩu
+            string hashedPassword = _hashPassword.HashPass(password);
 
-            // Kiểm tra mật khẩu
-            if (PasswordBox.Password != ConfirmPasswordBox.Password)
-            {
-                MessageBox.Show("Passwords do not match.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            var hashPass = hashPassword.HashPass(PasswordBox.Password);
-            // Tạo đối tượng User mới
+            // Tạo đối tượng người dùng mới
             var newUser = new User
             {
-                FullName = UsernameTextBox.Text,
-                Email = EmailTextBox.Text,
-                Password = hashPass,
+                Email = email,
+                FullName = fullname,
+                Password = hashedPassword,
                 Role = 1,
+                State = "ACTIVE",
             };
 
-            try
+            // Đăng ký người dùng mới
+            await _userService.RegisterUserAsync(newUser);
+            this.DialogResult = true;
+            Close();
+        }
+        private bool ValidateUser(string email, string fullname, string password, string confirmPassword)
+        {
+            // Kiểm tra nếu có trường nào bỏ trống
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(fullname) ||
+                string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(confirmPassword))
             {
-                // Kiểm tra xem người dùng đã tồn tại chưa
-                var existingUser = await _userService.GetUserByEmailAsync(newUser.Email);
-                if (existingUser != null)
-                {
-                    MessageBox.Show("This email is already registered. Please use a different email.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                // Gọi UserService để thêm người dùng
-                await _userService.AddUserAsync(newUser);
-
-                // Đóng cửa sổ và báo hiệu thêm thành công
-                this.DialogResult = true;
-                this.Close();
+                MessageBox.Show("Tất cả các trường đều bắt buộc!", "Trường cần thiết", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
-            catch (Exception ex)
+
+            // Kiểm tra tính hợp lệ của email
+            if (!_validation.IsValidEmail(email))
             {
-                MessageBox.Show($"Error adding user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Email không hợp lệ!", "Lỗi email", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
+
+            // Kiểm tra nếu mật khẩu và xác nhận mật khẩu không khớp
+            if (password != confirmPassword)
+            {
+                MessageBox.Show("Mật khẩu không khớp với xác nhận!", "Không khớp thông tin", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            // Thông tin hợp lệ
+            return true;
         }
     }
 }
