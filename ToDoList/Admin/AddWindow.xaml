@@ -25,6 +25,6 @@
 
         <!-- Add Button -->
         <Button Grid.Row="4" Grid.Column="1" Content="Add Category" Background="#1976D2" Foreground="White" FontWeight="DemiBold" Width="120" Height="20"  HorizontalAlignment="Left" Margin="176,176,0,18" Click="AddCategory_Click" />
-        <Button Grid.Row="4" Content="Close" Width="120" Height="20" Background="#1976D2" Foreground="White" FontWeight="DemiBold"  HorizontalAlignment="Left" Margin="19,176,0,18" Click="Close_Click" Grid.Column="1" />
+        <Button Grid.Row="4" Content="Close" Width="120" Height="20" Background="Red" Foreground="White" FontWeight="DemiBold"  HorizontalAlignment="Left" Margin="19,176,0,18" Click="Close_Click" Grid.Column="1" />
     </Grid>
 </Window>

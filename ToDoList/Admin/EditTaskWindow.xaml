@@ -30,7 +30,7 @@
         <!-- Save and Cancel Buttons -->
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
             <Button Name="btnSaveTask" Content="Save Task" Width="100" Background="#1976D2" Foreground="White" FontWeight="DemiBold" Click="btnSaveTask_Click" Margin="5" Height="35" />
-            <Button Name="btnCancel" Content="Cancel" Width="100" Background="#1976D2" Foreground="White" FontWeight="DemiBold" Click="btnCancel_Click" Margin="5" Height="35" />
+            <Button Name="btnCancel" Content="Close" Width="100" Background="Red" Foreground="White" FontWeight="DemiBold" Click="btnCancel_Click" Margin="5" Height="35" />
         </StackPanel>
     </Grid>
 </Window>

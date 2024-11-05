@@ -11,7 +11,7 @@
                    RadiusX="20" RadiusY="20" Margin="0,68,1,249" 
                    Stroke="Black" Fill="#F3F4F9"/>
 
-        <Label x:Name="TitleLabel" Content="Tên tác vụ" 
+        <Label x:Name="TitleLabel" Content="Title" 
                HorizontalAlignment="Left" Margin="20,80,0,0" 
                VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBox x:Name="TitleTextBox" 
@@ -19,7 +19,7 @@
                    VerticalAlignment="Top" Height="30" 
                    BorderBrush="#333333" FontSize="16"/>
 
-        <Label x:Name="DescriptionLabel" Content="Mô tả" 
+        <Label x:Name="DescriptionLabel" Content="Description" 
                HorizontalAlignment="Left" Margin="20,150,0,0" 
                VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBox x:Name="DescriptionTextbox" 
@@ -27,7 +27,7 @@
                    VerticalAlignment="Top" Height="80" 
                    BorderBrush="#333333" FontSize="14" TextWrapping="Wrap"/>
 
-        <Label x:Name="CategoryLabel" Content="Danh mục" 
+        <Label x:Name="CategoryLabel" Content="Category" 
                HorizontalAlignment="Left" Margin="20,270,0,0" 
                VerticalAlignment="Top" FontWeight="Bold"/>
         <ComboBox x:Name="CategoryComboBox" 
@@ -35,7 +35,7 @@
                    VerticalAlignment="Top" Height="30" 
                    FontSize="14" SelectionChanged="CategoryComboBox_SelectionChanged"/>
 
-        <Label x:Name="DateLabel" Content="Ngày" 
+        <Label x:Name="DateLabel" Content="Date" 
                HorizontalAlignment="Left" Margin="134,340,0,0" 
                VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="2.612,0.696"/>
         <DatePicker x:Name="PeriodDatePicker" 
@@ -43,7 +43,7 @@
                      VerticalAlignment="Top" Width="165" 
                      BorderBrush="#333333" FontSize="14"/>
 
-        <Label x:Name="PeriodLabel" Content="Thời gian" 
+        <Label x:Name="PeriodLabel" Content="Time" 
                HorizontalAlignment="Left" Margin="409,340,0,0" 
                VerticalAlignment="Top" FontWeight="Bold"/>
         <ComboBox x:Name="HourComboBox" HorizontalAlignment="Left" 
@@ -56,12 +56,12 @@
                    Text=":" VerticalAlignment="Top" 
                    FontSize="20" Foreground="#31473A"/>
 
-        <Button x:Name="SaveButton" Content="Lưu" 
+        <Button x:Name="SaveButton" Content="Save" 
                 HorizontalAlignment="Left" Margin="262,420,0,0" 
                 VerticalAlignment="Top" Width="100" Height="42" 
                 FontSize="15" Background="#1976D2" Foreground="White" 
                 FontWeight="Bold" Click="SaveButton_Click"/>
-        <Button x:Name="BackButton" Content="Hủy" 
+        <Button x:Name="BackButton" Content="Close" 
                 HorizontalAlignment="Left" Margin="388,420,0,0" 
                 VerticalAlignment="Top" Width="100" Height="42" 
                 FontSize="15" Background="#FF5722" Foreground="White" 

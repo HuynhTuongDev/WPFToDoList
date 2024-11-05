@@ -76,21 +76,21 @@
 
         <!-- Cột trái: Danh sách công việc -->
         <StackPanel Grid.Column="0">
-            <TextBlock Text="Công Việc Của Tôi" FontSize="24" 
+            <TextBlock Text="My Task" FontSize="24" 
                        FontWeight="Bold" Margin="0,0,0,20" 
                        Foreground="#333333" HorizontalAlignment="Center"/>
 
-            <Button Content="Đăng xuất" Width="100" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" 
+            <Button Content="Log out" Width="100" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" 
                     Background="#D32F2F" Foreground="White" BorderBrush="#4A4A4A" 
                     FontWeight="Bold" Margin="10,0,0,40" Click="LogoutButton_Click"/>
 
             <ListView x:Name="UserTasksListView" Margin="0,0,0,20">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="300">
+                        <GridViewColumn Width="200">
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Tên Công Việc" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Task Name" FontWeight="Bold" HorizontalAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
@@ -102,10 +102,10 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="300">
+                        <GridViewColumn Width="200">
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Mô tả" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Description" FontWeight="Bold" HorizontalAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
@@ -117,10 +117,10 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="200">
+                        <GridViewColumn Width="150">
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Ngày Tạo" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Create Date" FontWeight="Bold" HorizontalAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
@@ -132,10 +132,10 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="200">
+                        <GridViewColumn Width="150">
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Ngày Hết Hạn" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Overdue date" FontWeight="Bold" HorizontalAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
@@ -147,10 +147,10 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="160">
+                        <GridViewColumn Width="100">
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Hoàn Thành" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Is Completed" FontWeight="Bold" HorizontalAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
@@ -165,10 +165,10 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="120">
+                        <GridViewColumn Width="100">
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Danh Mục" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Category" FontWeight="Bold" HorizontalAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
@@ -179,6 +179,23 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
+                        <GridViewColumn Width="120">
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Create By" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding CreatedBy}" HorizontalAlignment="Center" TextAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+
+
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -190,13 +207,13 @@
         <StackPanel Grid.Column="1" Margin="10,0,0,0">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                 <TextBox Name="SearchTextBox" 
-                     Text="Tìm kiếm công việc..." 
+                     Text="Search..." 
                      Width="300" Margin="0,0,10,0" 
                      TextChanged="SearchTextBox_TextChanged"
                      GotFocus="SearchTextBox_GotFocus"
                      LostFocus="SearchTextBox_LostFocus"/>
 
-                <Button Content="Tìm" 
+                <Button Content="Search" 
                     Background="#1976D2" 
                     Click="SearchButton_Click" 
                     Width="100" 
@@ -205,9 +222,9 @@
 
 
 
-            <Button Content="Thêm Công Việc" Background="#1976D2" Click="AddTaskButton_Click" Width="300"/>
-            <Button Content="Chỉnh Sửa Công Việc" Background="#1976D2" Click="EditTaskButton_Click" Width="300"/>
-            <Button Content="Xóa Công Việc" Background="#1976D2" Click="DeleteTaskButton_Click" Width="300"/>
+            <Button Content="Add Task" Background="#1976D2" Click="AddTaskButton_Click" Width="300"/>
+            <Button Content="Edit Task" Background="Orange" Click="EditTaskButton_Click" Width="300"/>
+            <Button Content="Remove Task" Background="Red" Click="DeleteTaskButton_Click" Width="300"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -92,7 +92,7 @@
         <!-- Các nút Thêm, Sửa, Xóa -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10" Width="330">
             <Button Content="Create" Click="AddUser_Click"/>
-            <Button Content="Delete" Click="DeleteUser_Click"/>
+            <Button Content="Delete" Click="DeleteUser_Click" Background="Red"/>
         </StackPanel>
     </Grid>
 </UserControl>

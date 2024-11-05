@@ -161,7 +161,11 @@ namespace ToDoList
                 MessageBox.Show("Vui lòng chọn một công việc để chỉnh sửa.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-
+            if (User.UserId != selectedTask.CreatedBy)
+            {
+                MessageBox.Show("Không thể chỉnh sửa nội dung công việc của Admin !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             UpdateTask updateTaskWindow = new UpdateTask(selectedTask, _todoServices, _categoryServices);
 
             if (updateTaskWindow.ShowDialog() == true)
@@ -180,7 +184,11 @@ namespace ToDoList
                 MessageBox.Show("Vui lòng chọn một công việc để xóa.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-
+            if ( User.UserId != selectedTask.CreatedBy)
+            {
+                MessageBox.Show("Không thể xóa công việc của Admin !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             var result = MessageBox.Show($"Bạn có chắc chắn muốn xóa công việc '{selectedTask.Title}'?", "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)

@@ -37,6 +37,6 @@
         <Button Grid.Row="5" Grid.Column="2" Content="Update Category" Width="120" Height="25" Background="#1976D2" Foreground="White" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="18,45,0,27" Click="UpdateCategory_Click" />
 
         <!-- Close Button -->
-        <Button Grid.Row="5" Grid.Column="0" Content="Close" Width="120" Height="25" Background="#1976D2" Foreground="White" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="46,45,0,27" Click="Close_Click" Grid.ColumnSpan="2" RenderTransformOrigin="0.505,0.196" />
+        <Button Grid.Row="5" Grid.Column="0" Content="Close" Width="120" Height="25" Background="Red" Foreground="White" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="46,45,0,27" Click="Close_Click" Grid.ColumnSpan="2" RenderTransformOrigin="0.505,0.196" />
     </Grid>
 </Window>

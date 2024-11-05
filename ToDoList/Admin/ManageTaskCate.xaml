@@ -25,8 +25,8 @@
         <!-- Các nút thêm, xóa, cập nhật -->
         <StackPanel Orientation="Horizontal" Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0">
             <Button Content="Add" Width="100" Background="#1976D2" Foreground="White" FontSize="15" FontWeight="DemiBold" Margin="5" Click="AddButton_Click" />
-            <Button Content="Remove" Width="100" Background="#1976D2" Foreground="White" FontSize="15" FontWeight="DemiBold" Margin="5" Click="RemoveButton_Click" />
-            <Button Content="Update" Width="100" Margin="5" Background="#1976D2" Foreground="White" FontSize="15" FontWeight="DemiBold" Click="UpdateButton_Click" />
+            <Button Content="Remove" Width="100" Background="Red" Foreground="White" FontSize="15" FontWeight="DemiBold" Margin="5" Click="RemoveButton_Click" />
+            <Button Content="Update" Width="100" Margin="5" Background="Orange" Foreground="White" FontSize="15" FontWeight="DemiBold" Click="UpdateButton_Click" />
             <Button Content="Save Change" Width="100" Margin="5" Background="#1976D2" Foreground="White" FontSize="15" FontWeight="DemiBold" Click="SaveButton_Click" />
         </StackPanel>
     </Grid>
