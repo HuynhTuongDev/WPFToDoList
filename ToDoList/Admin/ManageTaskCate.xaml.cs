@@ -68,7 +68,7 @@ namespace ToDoList
             }
             else
             {
-                MessageBox.Show("Please select a category to remove.");
+                MessageBox.Show("Please select a category to update.");
             }
         }
 
@@ -76,6 +76,11 @@ namespace ToDoList
         {
             LoadTaskCategories();
             MessageBox.Show("All Updated successfully");
+        }
+
+        private void TaskCategoriesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
